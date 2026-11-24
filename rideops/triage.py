@@ -61,7 +61,7 @@ def open_with_engineering(tickets: pd.DataFrame, now: pd.Timestamp) -> pd.DataFr
 
 def assess(tickets: pd.DataFrame, category: str, description: str, now: pd.Timestamp,
            info_provided: set[str] = frozenset(), checks_done: set[str] = frozenset(),
-           ticket_id: str | None = None) -> GateResult:
+           ticket_id: str | None = None, fix_threshold: float = FIX_RATE_THRESHOLD) -> GateResult:
     """Run the gate for one ticket using only what was known at `now`."""
     pb = playbook(category)
     tickets = tickets[tickets["ticket_id"] != ticket_id]  # never match a ticket against itself
@@ -85,7 +85,7 @@ def assess(tickets: pd.DataFrame, category: str, description: str, now: pd.Times
     missing = [f for f in pb["required"] if f not in info_provided]
     pending = [c for c in pb["l1_checks"] if c not in checks_done]
 
-    if fix_rate < FIX_RATE_THRESHOLD and pending:
+    if fix_rate < fix_threshold and pending:
         return GateResult("RESOLVE_AT_L1",
                           f"Engineering fixed only {fix_rate:.0%} of similar escalations - most were "
                           "config or how-to. Work the runbook; escalate only if every check passes.",

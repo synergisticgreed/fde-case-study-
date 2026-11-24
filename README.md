@@ -10,7 +10,7 @@ python -m venv .venv
 .venv\Scripts\activate            # macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
 streamlit run app.py              # opens http://localhost:8501
-pytest -q                         # 7 tests
+pytest -q                         # 9 tests
 ```
 
 ## Why this tool (diagnosis in one screen)
@@ -50,15 +50,25 @@ which generates a structured handoff note for the ENG ticket. Issue history is m
 What-if (tab 3): preventing 50% of bounces cuts the 30 Sep backlog from 48 to 39. This is conservative
 because it ignores the engineering time freed up for genuine bugs.
 
+## Using the app (first time)
+
+Open on **🏠 Start here**: the problem in 3 numbers, then a real ticket played stage by stage. Click **▶️ Try this example yourself** to jump to **🎫 Check a ticket** with it filled in.
+
 ## Code layout
 
 ```
-app.py               Streamlit UI: Gate / Scorecard / Evidence tabs
-rideops/data.py      load CSV, derive template, flags, durations
-rideops/playbooks.py per-category runbook checks + required info (owned by support lead)
-rideops/triage.py    gate logic, handoff note, bounce breakdown
-rideops/metrics.py   weekly scorecard, agent view, backlog what-if
-tests/               behaviour tests
+app.py               entry point: wires sidebar + tabs together (no logic)
+rideops/             logic, no UI
+  data.py            load CSV, derive template, flags, durations
+  playbooks.py       per-category runbook checks + required info (owned by support lead)
+  triage.py          gate logic, handoff note, bounce breakdown
+  metrics.py         weekly scorecard, agent view, backlog what-if
+ui/                  one module per tab
+  config.py          ALL on-screen text, KPI definitions, targets, demo examples (edit here)
+  picker.py          ticket picker (built from the data) + advanced settings
+  components.py      shared widgets (verdict box, page switching)
+  home.py | check.py | progress.py | why.py   one file per page
+tests/               logic tests + UI smoke tests
 ```
 
 ## Assumptions and known limits
