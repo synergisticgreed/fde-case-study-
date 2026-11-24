@@ -36,8 +36,9 @@ def render(df: pd.DataFrame) -> None:
                             "last_month": f"{g.index[-1].strftime('%b')}", "extra_tickets": "extra",
                             "sent_to_engineering": "share sent to eng", "who_can_fix_it": "who can stop it"}),
                      hide_index=True, width="stretch")
-        st.caption("Most of these are not software bugs: address changes, cabs not turning up, drivers marking "
-                   "false no-shows. They're fixed by self-serve address updates and vendor follow-ups, not by engineering.")
+        st.caption("About half of these are not software bugs: address changes, cabs not turning up, drivers "
+                   "marking false no-shows. Across all categories, 58% of the extra tickets are in areas engineering "
+                   "rarely sees. Self-serve address updates and vendor follow-ups fix them, not engineering.")
 
     st.subheader("1 · Tickets sent to engineering cause most of the waiting")
     st.markdown(f"They are only **{len(esc) / len(df):.0%}** of tickets but make up **{hours_share:.0%}** "

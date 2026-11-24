@@ -26,10 +26,10 @@ pytest -q                         # 12 tests
 |---|---|
 | Escalations *are* the backlog | 34% of tickets (486/1,444) but **71% of ticket-hours**; median 12.6 h L1-only vs 65-129 h escalated |
 | Most escalations shouldn't have gone to engineering | **57% bounced back** (275/486): insufficient info 89, config 84, duplicate 56, how-to 24, not reproducible 22 |
-| Bounces are a process gap, not a few bad tickets | Bounce rate is 47-66% in every category, priority, channel and tier, so there's nothing to "predict" |
+| Bounces are a process gap, not a few bad tickets | Bounce rate is 47-68% in every major category, priority, channel and tier, so there's nothing to "predict" |
 | Each handoff costs about 50 h and client goodwill | Median resolution 58 h → 110 h → 164 h at 1/2/3 handoffs; CSAT 4.0 → 3.6 → 2.8 → 2.1 |
 | Duplicates are growing | "Duplicate of known issue" went 8 → 21 → 27 per month (Jul → Sep) |
-| "Fast" agents are partly premature closures | Karan B: 7.9 h median first-close vs ~20 h for peers, but **29% reopen rate** (64 of 151 reopened tickets) and CSAT 3.1 |
+| "Fast" agents are partly premature closures | Karan B: 7.9 h median first-close vs ~22 h for peers, but **29% reopen rate** (64 of 151 reopened tickets) and CSAT 3.1 |
 
 Both Meera (engineering is slow) and Sandeep (support escalates junk) are partly right: engineering is slow
 *because* more than half of its queue is junk that comes back around up to 3 times.
