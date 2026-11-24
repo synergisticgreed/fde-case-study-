@@ -10,10 +10,17 @@ python -m venv .venv
 .venv\Scripts\activate            # macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
 streamlit run app.py              # opens http://localhost:8501
-pytest -q                         # 9 tests
+pytest -q                         # 12 tests
 ```
 
 ## Why this tool (diagnosis in one screen)
+
+**Two things grew the backlog** (open ≈ arrivals/day × days open). Average open tickets went 20.8 → 42.9 (Jul → Sep):
+
+- **More tickets arriving: +52%** (13.0 → 19.7/day). This is the bigger driver. It comes mostly from **existing** clients
+  (+34% tickets per client; new clients add only 68 of Sep's 592). The fastest-growing issues are mostly **not software
+  bugs**: address changes (3x), cab no-shows/delays (2.5x), billing (1.8x). These are rarely escalated (3-15%).
+- **Each ticket staying open longer: +22%** (1.72 → 2.09 days). This is driven by escalations, below. The v0 targets this part.
 
 | Finding | Evidence from the data |
 |---|---|
@@ -47,8 +54,10 @@ which generates a structured handoff note for the ENG ticket. Issue history is m
 - **Drivers:** escalation bounce rate (57% → target <25%), handoffs per escalation.
 - **Guardrails:** reopen rate (currently 10%) and CSAT, so the backlog isn't "fixed" by closing early.
 
-What-if (tab 3): preventing 50% of bounces cuts the 30 Sep backlog from 48 to 39. This is conservative
-because it ignores the engineering time freed up for genuine bugs.
+What-if (Why page): preventing 50% of bounces cuts the 30 Sep backlog from 48 to 39. This is conservative
+because it ignores the engineering time freed up for genuine bugs. **The checklist alone won't get back to the July
+level.** The volume lever (self-serve address updates, vendor no-show follow-up, help-centre articles for the top
+how-to questions) has to run alongside it. The Why page lists the issues that grew most and who can stop each one.
 
 ## Using the app (first time)
 

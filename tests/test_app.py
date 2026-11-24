@@ -27,3 +27,14 @@ def test_try_example_opens_check_page_and_reaches_escalation_note():
     at.run()
     assert not at.exception
     assert any("Engineering history" in c.value for c in at.code)  # escalation note shown
+
+
+def test_ticket_already_with_engineering_is_not_sent_back_to_checklist():
+    at = _app()
+    at.radio(key="page").set_value(PAGES["check"]).run()
+    at.radio(key="src").set_value("A real open ticket").run()
+    from rideops.data import load_tickets
+    tid = load_tickets().query("status == 'Open - with Engineering'")["ticket_id"].iloc[0]
+    at.selectbox[0].set_value(tid).run()
+    assert not at.exception
+    assert any("Already with engineering" in i.value for i in at.info)

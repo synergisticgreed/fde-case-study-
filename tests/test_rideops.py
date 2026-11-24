@@ -52,3 +52,19 @@ def test_scorecard_and_simulation(df):
     assert weekly_scorecard(df)["open_at_week_end"].iloc[-1] == 48
     sim = simulate_backlog(df, 0.5)
     assert (sim["with_gate"] <= sim["actual"]).all()
+
+
+def test_growth_drivers_split_volume_and_duration(df):
+    from rideops.metrics import growth_drivers
+    g = growth_drivers(df)
+    assert len(g) == 3
+    # Both causes grew; arrivals grew faster than time-open (volume is the bigger driver).
+    arr = g["arrivals_per_day"].iloc[-1] / g["arrivals_per_day"].iloc[0]
+    dur = g["avg_days_open"].iloc[-1] / g["avg_days_open"].iloc[0]
+    assert arr > dur > 1
+
+
+def test_volume_growth_names_an_owner(df):
+    from rideops.metrics import volume_growth
+    v = volume_growth(df)
+    assert v["extra_tickets"].is_monotonic_decreasing and v["who_can_fix_it"].notna().all()

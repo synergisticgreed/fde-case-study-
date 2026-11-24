@@ -70,3 +70,19 @@ PLAYBOOKS: dict[str, dict[str, list[str]]] = {
 def playbook(category: str) -> dict[str, list[str]]:
     """Return the playbook for a category (empty lists if unknown)."""
     return PLAYBOOKS.get(category, {"required": [], "l1_checks": []})
+
+
+# Who can remove the root cause of each category's tickets (most are not software bugs).
+OWNERS = {
+    "Cab delay / no-show complaint": "Fleet / vendor ops",
+    "Employee address / geocode change": "Self-serve address update (product)",
+    "How-to / feature request": "Help-centre articles + product board",
+    "Billing / invoice discrepancy": "Finance (rate-card setup)",
+    "Login / access issue": "Client admin self-serve",
+    "Driver / vehicle compliance docs": "Vendor compliance",
+}
+
+
+def owner(category: str) -> str:
+    """Team best placed to stop this category recurring; defaults to engineering."""
+    return OWNERS.get(category, "Engineering (product bug)")

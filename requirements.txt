@@ -1,4 +1,4 @@
 pandas>=2.2,<3
-numpy>=2.0,<3
+numpy>=2.0,<2.4   # pandas 2.x predates NumPy 2.4+, which deprecates how pandas builds timedeltas
 streamlit>=1.40,<2
 pytest>=8

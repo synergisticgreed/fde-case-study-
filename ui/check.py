@@ -24,6 +24,13 @@ def render(df: pd.DataFrame) -> None:
         ticket = pick_ticket(df, cfg.now)
     if not ticket:
         return
+    if ticket.get("status") == "Open - with Engineering":  # already escalated: checklist no longer applies
+        with result_box:
+            st.info(f"### 🔧 Already with engineering\nThis ticket has gone to engineering "
+                    f"**{int(ticket['eng_handoffs'])} time(s)** ({ticket['eng_ticket_id']}). There's nothing to do "
+                    "here until engineering returns it. Then pick it again and use the checklist so it "
+                    "doesn't bounce a second time.")
+        return
     pb = playbook(ticket["category"])
     key = f"{ticket['ticket_id']}|{ticket['description']}"  # new ticket -> fresh checklist
 

@@ -27,6 +27,8 @@ def render(df: pd.DataFrame) -> None:
         col.caption("✅ getting better" if better else "⚠️ getting worse" if diff else "➖ no change")
 
     st.info(PROGRESS_GOAL)
+    st.caption("⏳ The last 1-2 weeks always look a bit better than they are: some of those tickets "
+               "haven't been sent back or reopened *yet*. Judge trends on weeks that are at least 2 weeks old.")
     st.markdown("**Open tickets at the end of each week**")
     st.line_chart(card["open_at_week_end"].rename("open tickets"))
 
